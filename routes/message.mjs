@@ -7,10 +7,20 @@ const app = express()
 const router = express.Router()
 
 
-router.get('/', async (req,res)=>{
-	const request='select *from users'
-	const results=await connectDB(request)
-	res.json(results)
+router.post('/:idmessage', async (req,res)=>{
+	let user=req.body.idUser
+	const request=`delete from message where id='${req.params.idmessage}'`
+	const requestVerif=`select *from message 
+	where id_user='${user}' and id='${req.params.idmessage}'`
 
+	const verif= await connectDB(requestVerif)
+
+	if (verif.length>0){
+	const results=await connectDB(request)
+	res.json(results)}
+	else {
+		res.sendStatus(404)
+	}
 })
+
 export default router
