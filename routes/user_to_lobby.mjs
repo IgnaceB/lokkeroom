@@ -9,10 +9,10 @@ const router = express.Router()
 
 router.post('/', async (req,res)=>{
 	let id_lobby=req.body.idLobby
-	let id_user=req.body.idUser
+	let id_user=res.locals.id
 	const request='insert into user_to_lobby '
 	const results=await connectDB(request)
 	res.json(results)
-
 })
+
 export default router

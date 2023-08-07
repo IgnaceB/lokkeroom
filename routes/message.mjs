@@ -8,7 +8,7 @@ const router = express.Router()
 
 
 router.post('/:idmessage', async (req,res)=>{
-	let user=req.body.idUser
+	let user=res.locals.id
 	const request=`delete from message where id='${req.params.idmessage}'`
 	const requestVerif=`select *from message 
 	where id_user='${user}' and id='${req.params.idmessage}'`

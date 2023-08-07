@@ -21,7 +21,8 @@ router.get('/login', async (req,res)=>{
 router.post('/sign',async(req,res)=>{
 	let email=req.body.email
 	let password=req.body.password
-	const request=`insert into users (email,userpassword,isadmin) values ('${email}','${password}','0')`
+	let admin=req.body.admin
+	const request=`insert into users (email,userpassword,isadmin) values ('${email}','${password}','${admin}')`
 	await connectDB(request)
 	res.send(`create user ${email}`)
 })
@@ -41,7 +42,6 @@ router.post('/login', async(req,res)=>{
 
 		res.cookie('authorization',accessToken,{httpOnly : true})
 		res.status(200).send('authorization')
-
 	}
 	else {
 
